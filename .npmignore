@@ -1,0 +1,7 @@
+# .npmignore
+src/
+tsconfig.json
+.gitignore
+node_modules
+test/
+test-authmate-app/
