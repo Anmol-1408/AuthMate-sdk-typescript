@@ -1,5 +1,5 @@
-const ACCESS_KEY = 'authmate_access_token';
-const REFRESH_KEY = 'authmate_refresh_token';
+const ACCESS_KEY = 'accessToken';
+const REFRESH_KEY = 'refreshToken';
 
 interface RedirectConfig {
   redirectTo?: string;
