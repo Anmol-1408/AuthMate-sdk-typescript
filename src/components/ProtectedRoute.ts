@@ -7,7 +7,7 @@ interface ProtectedRouteConfig {
 
 export function createProtectedRoute(config: ProtectedRouteConfig = {}) {
   const { fallback = null, checkTokenExpiry = true } = config;
-  
+
   return function ProtectedRoute({ children }: { children: any }) {
     // Check authentication
     if (checkTokenExpiry) {

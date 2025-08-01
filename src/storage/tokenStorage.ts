@@ -18,15 +18,15 @@ export const tokenStorage = {
     localStorage.setItem(ACCESS_KEY, access);
     localStorage.setItem(REFRESH_KEY, refresh);
   },
-  
+
   getAccess: () => localStorage.getItem(ACCESS_KEY),
   getRefresh: () => localStorage.getItem(REFRESH_KEY),
-  
+
   clear: () => {
     localStorage.removeItem(ACCESS_KEY);
     localStorage.removeItem(REFRESH_KEY);
   },
-  
+
   isAuthenticated: () => !!localStorage.getItem(ACCESS_KEY),
 
   // Check authentication and redirect if needed
@@ -52,7 +52,7 @@ export const tokenStorage = {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const currentTime = Date.now() / 1000;
       const isExpired = payload.exp < currentTime;
-      
+
       if (isExpired) {
         localStorage.removeItem(ACCESS_KEY);
         localStorage.removeItem(REFRESH_KEY);

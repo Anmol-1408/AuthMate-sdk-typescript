@@ -20,7 +20,7 @@ export function useAuth(options: UseAuthOptions = {}) {
         // Check expiry without redirect
         const token = tokenStorage.getAccess();
         if (!token) return false;
-        
+
         try {
           const payload = JSON.parse(atob(token.split('.')[1]));
           const currentTime = Date.now() / 1000;
@@ -28,7 +28,8 @@ export function useAuth(options: UseAuthOptions = {}) {
         } catch {
           return false;
         }
-      } else {
+      }
+      else {
         return tokenStorage.isAuthenticated();
       }
     }
