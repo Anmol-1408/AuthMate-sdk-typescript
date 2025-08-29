@@ -28,3 +28,20 @@ export interface ErrorResponse {
   error: string;
   [key: string]: any; // Allows additional fields like status_code, etc.
 }
+
+export interface VerifyEmailPayload {
+  token: string;
+}
+
+export interface ResendVerifyEmailPayload {
+  email: string;
+}
+
+export interface PasswordResetPayload {
+  email: string;
+}
+
+export interface SetNewPasswordPayload {
+  token: string;
+  new_password: string;
+}

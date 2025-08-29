@@ -4,12 +4,16 @@ import {
   TokenResponse,
   MagicLinkRequestPayload,
   AcceptInvitePayload,
-  ErrorResponse
+  ErrorResponse,
+  SetNewPasswordPayload,
+  ResendVerifyEmailPayload,
+  VerifyEmailPayload,
+  PasswordResetPayload
 } from '../types/index';
 import { handleError } from '../utils/errorHandler';
 import { tokenStorage } from '../storage/tokenStorage';
 
-const BASE_URL = 'http://127.0.0.1:8000/api';
+const BASE_URL = 'https://api.authmate.xyz/api';
 const HEADERS = {
   'Content-Type': 'application/json'
 };
@@ -125,5 +129,58 @@ export const AuthMateClient = {
 
   getRefreshToken() {
     return tokenStorage.getRefresh();
+  },
+
+  async verifyEmail(apiKey: string, payload: VerifyEmailPayload): Promise<APIResponse<string>> {
+    const res = await fetch(`${BASE_URL}/auth/verify-email/`, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-API-Key': apiKey },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) return { success: false, error: await handleError(res) };
+
+    const data = await res.json();
+    return { success: true, data: data.message };
+  },
+
+  async resendVerifyEmail(apiKey: string, payload: ResendVerifyEmailPayload): Promise<APIResponse<string>> {
+    const res = await fetch(`${BASE_URL}/auth/resend-email-verify/`, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-API-Key': apiKey },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) return { success: false, error: await handleError(res) };
+
+    const data = await res.json();
+    return { success: true, data: data.message };
+  },
+
+  async passwordReset(apiKey:string, payload: PasswordResetPayload): Promise<APIResponse<string>> {
+    const res = await fetch(`${BASE_URL}/auth/password/reset/`, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-API-Key': apiKey },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) return { success: false, error: await handleError(res) };
+
+    const data = await res.json();
+    return { success: true, data: data.message };
+  },
+
+  async setNewPassword(apiKey: string, payload: SetNewPasswordPayload): Promise<APIResponse<string>> {
+    const res = await fetch(`${BASE_URL}/auth/set-new-password/`, {
+      method: 'POST',
+      headers: { ...HEADERS, 'X-API-Key': apiKey },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) return { success: false, error: await handleError(res) };
+
+    const data = await res.json();
+    return { success: true, data: data.message };
   }
+
 };
